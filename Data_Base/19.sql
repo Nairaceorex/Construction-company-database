@@ -1,83 +1,83 @@
-CREATE TABLE Должности
+CREATE TABLE Positions
 (
-  Наименование_должности VARCHAR NOT NULL,
-  Оклад INT NOT NULL,
-  Обязанности VARCHAR NOT NULL,
-  Требования VARCHAR NOT NULL,
-  Код_должности INT NOT NULL,
-  PRIMARY KEY (Код_должности)
+  Job_title VARCHAR NOT NULL,
+  Salary INT NOT NULL,
+  Duties VARCHAR NOT NULL,
+  Requirements VARCHAR NOT NULL,
+  ID_Position INT NOT NULL,
+  PRIMARY KEY (ID_Position)
 );
 
-CREATE TABLE Виды_работ
+CREATE TABLE Types_of_jobs
 (
-  Код_вида INT NOT NULL,
-  _Наименование VARCHAR NOT NULL,
-  _Описание VARCHAR NOT NULL,
-  Цена_работы INT NOT NULL,
-  PRIMARY KEY (Код_вида)
+  ID_Type INT NOT NULL,
+  _Name VARCHAR NOT NULL,
+  _Description VARCHAR NOT NULL,
+  Price_of_work INT NOT NULL,
+  PRIMARY KEY (ID_Type)
 );
 
-CREATE TABLE Материалы
+CREATE TABLE Materials
 (
-  Код_материала INT NOT NULL,
-  Код_вида INT NOT NULL,
-  Код_материала_2Код_вида INT NOT NULL,
-  Код_материала_3Код_вида INT NOT NULL,
-  PRIMARY KEY (Код_материала),
-  FOREIGN KEY (Код_вида) REFERENCES Виды_работ(Код_вида),
-  FOREIGN KEY (Код_материала_2Код_вида) REFERENCES Виды_работ(Код_вида),
-  FOREIGN KEY (Код_материала_3Код_вида) REFERENCES Виды_работ(Код_вида)
+  ID_Material INT NOT NULL,
+  ID_Type INT NOT NULL,
+  ID_Materials_2ID_Type INT NOT NULL,
+  ID_Materials_3ID_Type INT NOT NULL,
+  PRIMARY KEY (ID_Material),
+  FOREIGN KEY (ID_Type) REFERENCES Types_of_jobs(ID_Type),
+  FOREIGN KEY (ID_Materials_2ID_Type) REFERENCES Types_of_jobs(ID_Type),
+  FOREIGN KEY (ID_Materials_3ID_Type) REFERENCES Types_of_jobs(ID_Type)
 );
 
-CREATE TABLE Заказчики
+CREATE TABLE Customers
 (
-  Код_заказчика INT NOT NULL,
-  Адрес VARCHAR NOT NULL,
-  ФИО VARCHAR NOT NULL,
-  Телефон INT NOT NULL,
-  Паспортные_данные INT NOT NULL,
-  PRIMARY KEY (Код_заказчика)
+  ID_Customer INT NOT NULL,
+  Address VARCHAR NOT NULL,
+  Full_Name VARCHAR NOT NULL,
+  Phone INT NOT NULL,
+  Passport_data INT NOT NULL,
+  PRIMARY KEY (ID_Customer)
 );
 
-CREATE TABLE Сотрудники
+CREATE TABLE Staff
 (
-  ФИО VARCHAR NOT NULL,
-  Возраст INT NOT NULL,
-  Пол VARCHAR NOT NULL,
-  Адрес VARCHAR NOT NULL,
-  Телефон INT NOT NULL,
-  Паспортные_данные INT NOT NULL,
-  Код_сотрудника INT NOT NULL,
-  Код_должности INT,
-  Код_бригада INT NOT NULL,
-  PRIMARY KEY (Код_сотрудника),
-  FOREIGN KEY (Код_должности) REFERENCES Должности(Код_должности),
-  FOREIGN KEY (Код_бригада) REFERENCES Бригада(Код_бригада)
+  Full_Name VARCHAR NOT NULL,
+  Age INT NOT NULL,
+  Sex VARCHAR NOT NULL,
+  Address VARCHAR NOT NULL,
+  Phone INT NOT NULL,
+  Passport_data INT NOT NULL,
+  ID_Employee INT NOT NULL,
+  ID_Position INT,
+  ID_Brigade INT NOT NULL,
+  PRIMARY KEY (ID_Employee),
+  FOREIGN KEY (ID_Position) REFERENCES Positions(ID_Position),
+  FOREIGN KEY (ID_Brigade) REFERENCES Brigades(ID_Brigade)
 );
 
-CREATE TABLE Бригада
+CREATE TABLE Brigades
 (
-  Код_бригада INT NOT NULL,
-  Код_сотрудника INT NOT NULL,
-  Код_сотрудника_3Код_сотрудника INT NOT NULL,
-  PRIMARY KEY (Код_бригада),
-  FOREIGN KEY (Код_сотрудника) REFERENCES Сотрудники(Код_сотрудника),
-  FOREIGN KEY (Код_сотрудника_3Код_сотрудника) REFERENCES Сотрудники(Код_сотрудника)
+  ID_Brigade INT NOT NULL,
+  ID_Employee INT NOT NULL,
+  ID_Employee_3ID_Employee INT NOT NULL,
+  PRIMARY KEY (ID_Brigade),
+  FOREIGN KEY (ID_Employee) REFERENCES Staff(ID_Employee),
+  FOREIGN KEY (ID_Employee_3ID_Employee) REFERENCES Staff(ID_Employee)
 );
 
-CREATE TABLE Заказы
+CREATE TABLE Orders
 (
-  Дата_начала DATE NOT NULL,
-  Стоимость INT NOT NULL,
-  Об_оплате VARCHAR NOT NULL,
-  Отметка_о_завершении VARCHAR NOT NULL,
-  Дата_окончания DATE NOT NULL,
-  Код_заказа INT NOT NULL,
-  Код_заказчика INT NOT NULL,
-  Код_бригада INT,
-  Код_вида INT NOT NULL,
-  PRIMARY KEY (Код_заказа),
-  FOREIGN KEY (Код_заказчика) REFERENCES Заказчики(Код_заказчика),
-  FOREIGN KEY (Код_бригада) REFERENCES Бригада(Код_бригада),
-  FOREIGN KEY (Код_вида) REFERENCES Виды_работ(Код_вида)
+  Start_date DATE NOT NULL,
+  Cost INT NOT NULL,
+  About_payment VARCHAR NOT NULL,
+  Completion_mark VARCHAR NOT NULL,
+  Expiration_date DATE NOT NULL,
+  ID_Order INT NOT NULL,
+  ID_Customer_ INT NOT NULL,
+  ID_Brigade INT,
+  ID_Type INT NOT NULL,
+  PRIMARY KEY (ID_Order),
+  FOREIGN KEY (ID_Customer_) REFERENCES Customers(ID_Customer),
+  FOREIGN KEY (ID_Brigade) REFERENCES Brigades(ID_Brigade),
+  FOREIGN KEY (ID_Type) REFERENCES Types_of_jobs(ID_Type)
 );
